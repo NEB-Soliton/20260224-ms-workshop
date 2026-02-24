@@ -224,10 +224,15 @@
             const stored = localStorage.getItem('pomodoroStats');
             
             if (stored) {
-                const data = JSON.parse(stored);
-                // 同じ日付であれば復元
-                if (data.date === today) {
-                    this.todayStats = data.stats;
+                try {
+                    const data = JSON.parse(stored);
+                    // 同じ日付であれば復元
+                    if (data.date === today) {
+                        this.todayStats = data.stats;
+                    }
+                } catch (error) {
+                    // 破損したデータの場合は無視してデフォルト値を使用
+                    console.warn('Failed to parse stored stats:', error);
                 }
             }
         }

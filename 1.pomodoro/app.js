@@ -7,6 +7,7 @@
     // グローバル変数
     let timerEngine;
     let uiController;
+    let audioContext; // AudioContext を再利用
 
     /**
      * DOMContentLoaded時の初期化
@@ -95,7 +96,11 @@
     function playCompletionSound() {
         // Web Audio APIを使用してシンプルなビープ音を生成
         try {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            // AudioContext を初回のみ作成（リソースリーク防止）
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
 

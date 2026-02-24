@@ -31,10 +31,18 @@
          * @param {number} seconds - 残り秒数
          */
         updateTime(seconds) {
+            this.elements.timeDisplay.textContent = this.formatTime(seconds);
+        }
+
+        /**
+         * 秒数を MM:SS 形式にフォーマット
+         * @param {number} seconds - 秒数
+         * @returns {string} フォーマット済み時間文字列
+         */
+        formatTime(seconds) {
             const minutes = Math.floor(seconds / 60);
             const secs = seconds % 60;
-            const timeString = `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-            this.elements.timeDisplay.textContent = timeString;
+            return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         }
 
         /**
