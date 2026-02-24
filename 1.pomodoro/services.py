@@ -1,5 +1,5 @@
 """統計情報サービス"""
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Dict, Any, List
 from models.session import PomodoroSession
 from repositories.session_repository import SessionRepository
