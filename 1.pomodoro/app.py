@@ -159,7 +159,7 @@ class GamificationEngine:
         week_ago = datetime.utcnow() - timedelta(days=7)
         week_count = PomodoroSession.query.filter(
             PomodoroSession.user_id == user.id,
-            PomodoroSession.completed == True,
+            PomodoroSession.completed,
             PomodoroSession.completed_at >= week_ago
         ).count()
         
@@ -314,7 +314,7 @@ def get_statistics():
     week_ago = now - timedelta(days=7)
     week_sessions = PomodoroSession.query.filter(
         PomodoroSession.user_id == user.id,
-        PomodoroSession.completed == True,
+        PomodoroSession.completed,
         PomodoroSession.completed_at >= week_ago
     ).all()
     
@@ -322,7 +322,7 @@ def get_statistics():
     month_ago = now - timedelta(days=30)
     month_sessions = PomodoroSession.query.filter(
         PomodoroSession.user_id == user.id,
-        PomodoroSession.completed == True,
+        PomodoroSession.completed,
         PomodoroSession.completed_at >= month_ago
     ).all()
     
@@ -335,7 +335,7 @@ def get_statistics():
         
         count = PomodoroSession.query.filter(
             PomodoroSession.user_id == user.id,
-            PomodoroSession.completed == True,
+            PomodoroSession.completed,
             PomodoroSession.completed_at >= date_start,
             PomodoroSession.completed_at < date_end
         ).count()
@@ -370,9 +370,9 @@ def get_history():
     if not user:
         return jsonify([])
     
-    sessions = PomodoroSession.query.filter_by(
-        user_id=user.id,
-        completed=True
+    sessions = PomodoroSession.query.filter(
+        PomodoroSession.user_id == user.id,
+        PomodoroSession.completed
     ).order_by(PomodoroSession.completed_at.desc()).limit(20).all()
     
     return jsonify([{
