@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ポモドーロタイマー</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('main.static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="timer-card" aria-label="ポモドーロタイマー">
+        <header class="title-bar">
+          <h1>ポモドーロタイマー</h1>
+          <div class="window-controls" aria-hidden="true">
+            <span>−</span><span>□</span><span>×</span>
+          </div>
+        </header>
+
+        <p id="modeLabel" class="mode-label">作業中</p>
+
+        <div class="progress-wrap" aria-label="タイマー進捗">
+          <div id="progressRing" class="progress-ring" style="--progress: 0">
+            <div id="timeDisplay" class="time-display">25:00</div>
+          </div>
+        </div>
+
+        <div class="actions" aria-label="タイマー操作">
+          <button id="primaryButton" type="button" class="btn btn-primary">開始</button>
+          <button id="resetButton" type="button" class="btn btn-outline">リセット</button>
+        </div>
+
+        <section class="summary-card" aria-label="今日の進捗">
+          <h2>今日の進捗</h2>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <p class="summary-value">4</p>
+              <p class="summary-label">完了</p>
+            </div>
+            <div class="summary-item">
+              <p class="summary-value">1時間40分</p>
+              <p class="summary-label">集中時間</p>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="{{ url_for('main.static', filename='js/timer_engine.js') }}"></script>
+    <script src="{{ url_for('main.static', filename='js/ui.js') }}"></script>
+    <script src="{{ url_for('main.static', filename='js/app.js') }}"></script>
+  </body>
+</html>
