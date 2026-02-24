@@ -1,7 +1,7 @@
 """
 進捗サービス - 当日進捗の集計ロジック
 """
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List
 from models import PomodoroSession, DailyProgress
 from repositories import HistoryRepository
@@ -65,7 +65,6 @@ class ProgressService:
             dict: 今週の統計情報
         """
         # 今日から7日分の進捗を取得
-        from datetime import timedelta
         today = datetime.now().date()
         
         weekly_data = []

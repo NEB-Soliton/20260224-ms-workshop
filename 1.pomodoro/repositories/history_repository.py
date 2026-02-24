@@ -3,9 +3,12 @@
 """
 import json
 import os
+import logging
 from typing import List, Optional
 from datetime import datetime
 from models import PomodoroSession
+
+logger = logging.getLogger(__name__)
 
 
 class HistoryRepository:
@@ -58,7 +61,7 @@ class HistoryRepository:
             self._save_all(sessions)
             return True
         except Exception as e:
-            print(f"セッションの追加に失敗しました: {e}")
+            logger.error(f"セッションの追加に失敗しました: {e}")
             return False
     
     def _save_all(self, sessions: List[PomodoroSession]):

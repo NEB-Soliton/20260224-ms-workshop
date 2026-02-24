@@ -3,8 +3,11 @@
 """
 import json
 import os
+import logging
 from typing import Optional
 from models import Settings
+
+logger = logging.getLogger(__name__)
 
 
 class SettingsRepository:
@@ -58,7 +61,7 @@ class SettingsRepository:
                 json.dump(settings.to_dict(), f, ensure_ascii=False, indent=2)
             return True
         except Exception as e:
-            print(f"設定の保存に失敗しました: {e}")
+            logger.error(f"設定の保存に失敗しました: {e}")
             return False
     
     def update(self, **kwargs) -> Settings:
