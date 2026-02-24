@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro タイマー</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🍅 Pomodoro タイマー</h1>
+        </header>
+        
+        <main>
+            <div class="timer-card">
+                <div class="timer-display">
+                    <div class="timer-circle">
+                        <svg class="progress-ring" width="250" height="250">
+                            <circle class="progress-ring-bg" cx="125" cy="125" r="110"></circle>
+                            <circle class="progress-ring-progress" cx="125" cy="125" r="110"></circle>
+                        </svg>
+                        <div class="timer-text">
+                            <div id="time-display" class="time">25:00</div>
+                            <div id="mode-display" class="mode">作業時間</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button id="start-btn" class="btn btn-primary">スタート</button>
+                    <button id="pause-btn" class="btn btn-secondary" disabled>一時停止</button>
+                    <button id="reset-btn" class="btn btn-secondary">リセット</button>
+                </div>
+            </div>
+            
+            <div class="progress-cards">
+                <div class="card">
+                    <div class="card-title">今日の完了</div>
+                    <div id="today-count" class="card-value">0</div>
+                    <div class="card-unit">セッション</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">今週の完了</div>
+                    <div id="week-count" class="card-value">0</div>
+                    <div class="card-unit">セッション</div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/timer_engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
