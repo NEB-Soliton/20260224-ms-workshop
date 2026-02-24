@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card timer-card">
+            <h1>🍅 Pomodoro Timer</h1>
+            
+            <!-- タイマー表示 -->
+            <div class="timer-display">
+                <svg class="progress-ring" width="200" height="200">
+                    <circle
+                        class="progress-ring-circle"
+                        stroke="#667eea"
+                        stroke-width="8"
+                        fill="transparent"
+                        r="90"
+                        cx="100"
+                        cy="100"
+                    />
+                </svg>
+                <div class="time-text" id="timeDisplay">25:00</div>
+            </div>
+            
+            <!-- コントロールボタン -->
+            <div class="controls">
+                <button id="startBtn" class="btn btn-primary">開始</button>
+                <button id="pauseBtn" class="btn btn-secondary" disabled>一時停止</button>
+                <button id="resetBtn" class="btn btn-secondary">リセット</button>
+            </div>
+            
+            <!-- 設定 -->
+            <div class="settings">
+                <h3>⚙️ 設定</h3>
+                <div class="setting-group">
+                    <label>作業時間（分）:</label>
+                    <select id="workDuration">
+                        <option value="15">15</option>
+                        <option value="25" selected>25</option>
+                        <option value="35">35</option>
+                        <option value="45">45</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>短い休憩（分）:</label>
+                    <select id="shortBreak">
+                        <option value="3">3</option>
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>長い休憩（分）:</label>
+                    <select id="longBreak">
+                        <option value="10">10</option>
+                        <option value="15" selected>15</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>テーマ:</label>
+                    <select id="theme">
+                        <option value="light" selected>ライト</option>
+                        <option value="dark">ダーク</option>
+                        <option value="focus">フォーカス</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="soundEnabled" checked>
+                        サウンド有効
+                    </label>
+                </div>
+                <button id="saveSettingsBtn" class="btn btn-primary">設定を保存</button>
+            </div>
+        </div>
+        
+        <!-- 当日の進捗 -->
+        <div class="card progress-card">
+            <h3>📊 今日の進捗</h3>
+            <div class="progress-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="todaySessions">0</div>
+                    <div class="stat-label">完了セッション</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="todayWorkTime">0</div>
+                    <div class="stat-label">作業時間（分）</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="todayBreakTime">0</div>
+                    <div class="stat-label">休憩時間（分）</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 履歴 -->
+        <div class="card history-card">
+            <h3>📜 最近の履歴</h3>
+            <div id="historyList" class="history-list">
+                <!-- JavaScriptで動的に生成 -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
