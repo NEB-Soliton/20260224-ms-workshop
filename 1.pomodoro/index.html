@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポモドーロタイマー</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <!-- ヘッダー -->
+            <header class="header">
+                <h1 class="title">ポモドーロタイマー</h1>
+                <div class="window-controls">
+                    <button class="control-btn minimize">−</button>
+                    <button class="control-btn maximize">□</button>
+                    <button class="control-btn close">×</button>
+                </div>
+            </header>
+
+            <!-- ステータス -->
+            <div class="status">作業中</div>
+
+            <!-- タイマー円形表示 -->
+            <div class="timer-container">
+                <svg class="timer-ring" viewBox="0 0 200 200">
+                    <!-- 背景円 -->
+                    <circle
+                        class="timer-ring-background"
+                        cx="100"
+                        cy="100"
+                        r="80"
+                        fill="none"
+                        stroke="#e0e0e0"
+                        stroke-width="20"
+                    />
+                    <!-- 進捗円 -->
+                    <circle
+                        class="timer-ring-progress"
+                        cx="100"
+                        cy="100"
+                        r="80"
+                        fill="none"
+                        stroke="#7C7CE0"
+                        stroke-width="20"
+                        stroke-linecap="round"
+                        transform="rotate(-90 100 100)"
+                        stroke-dasharray="502.4"
+                        stroke-dashoffset="125.6"
+                    />
+                </svg>
+                <div class="timer-display">25:00</div>
+            </div>
+
+            <!-- ボタン -->
+            <div class="controls">
+                <button class="btn btn-primary">開始</button>
+                <button class="btn btn-secondary">リセット</button>
+            </div>
+
+            <!-- 進捗カード -->
+            <div class="progress-card">
+                <h2 class="progress-title">今日の進捗</h2>
+                <div class="progress-stats">
+                    <div class="stat">
+                        <div class="stat-value">4</div>
+                        <div class="stat-label">完了</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">1時間40分</div>
+                        <div class="stat-label">集中時間</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
