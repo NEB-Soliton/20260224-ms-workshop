@@ -1,4 +1,9 @@
 // ポモドーロタイマー - 視覚的フィードバック強化版
+
+// 定数定義
+const NOTIFICATION_FREQUENCY_HZ = 800; // 通知音の周波数（Hz）
+const NOTIFICATION_VOLUME = 0.3; // 通知音のボリューム（0.0-1.0）
+
 class PomodoroTimer {
     constructor() {
         // DOM要素
@@ -225,13 +230,13 @@ class PomodoroTimer {
         const particle = document.createElement('div');
         particle.className = 'particle';
         
-        const size = Math.random() * 5 + 2;
+        const particleSize = Math.random() * 5 + 2;
         const startX = Math.random() * window.innerWidth;
         const drift = (Math.random() - 0.5) * 100;
         const duration = Math.random() * 5 + 5;
         
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
+        particle.style.width = `${particleSize}px`;
+        particle.style.height = `${particleSize}px`;
         particle.style.left = `${startX}px`;
         particle.style.bottom = '0';
         particle.style.setProperty('--drift', `${drift}px`);
@@ -292,10 +297,10 @@ class PomodoroTimer {
             oscillator.connect(gainNode);
             gainNode.connect(audioContext.destination);
             
-            oscillator.frequency.value = 800;
+            oscillator.frequency.value = NOTIFICATION_FREQUENCY_HZ;
             oscillator.type = 'sine';
             
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(NOTIFICATION_VOLUME, audioContext.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
             
             oscillator.start(audioContext.currentTime);
