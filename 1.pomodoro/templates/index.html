@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポモドーロタイマー</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>ポモドーロタイマー</h1>
+        <div id="timer-display">
+            <span id="timer-minutes">25</span>:<span id="timer-seconds">00</span>
+        </div>
+        <div id="controls">
+            <button id="start-btn">開始</button>
+            <button id="pause-btn" disabled>一時停止</button>
+            <button id="reset-btn">リセット</button>
+        </div>
+        <div id="mode-display">
+            <span id="current-mode">作業時間</span>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/timer_engine.js') }}"></script>
+    <script>
+        // Basic initialization
+        const timer = new TimerEngine(25, 5);
+        const startBtn = document.getElementById('start-btn');
+        const pauseBtn = document.getElementById('pause-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const minutesDisplay = document.getElementById('timer-minutes');
+        const secondsDisplay = document.getElementById('timer-seconds');
+        
+        timer.onTick = (state) => {
+            const remaining = Math.ceil(state.remainingTime);
+            const minutes = Math.floor(remaining / 60);
+            const seconds = remaining % 60;
+            minutesDisplay.textContent = String(minutes).padStart(2, '0');
+            secondsDisplay.textContent = String(seconds).padStart(2, '0');
+        };
+        
+        timer.onStateChange = (state) => {
+            startBtn.disabled = state.isRunning;
+            pauseBtn.disabled = !state.isRunning;
+        };
+        
+        timer.onComplete = () => {
+            alert('完了！');
+        };
+        
+        startBtn.addEventListener('click', () => timer.start());
+        pauseBtn.addEventListener('click', () => timer.pause());
+        resetBtn.addEventListener('click', () => timer.reset());
+    </script>
+</body>
+</html>

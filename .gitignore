@@ -25,3 +25,8 @@ Thumbs.db
 
 # Flask
 instance/
+
+# Coverage reports
+.coverage
+.coverage.*
+htmlcov/
