@@ -57,13 +57,13 @@
 
         /**
          * プログレスリングを更新
-         * @param {number} progress - 進捗率 (0.0 ~ 1.0)
+         * @param {number} progress - 進捗率 (0.0 ~ 1.0, 経過時間/総時間)
          */
         updateProgress(progress) {
             // 進捗率に応じてstroke-dashoffsetを計算
-            // progress 0 → offset 0 (満タン)
-            // progress 1 → offset circumference (空)
-            const offset = this.circumference * (1 - progress);
+            // progress 0 (開始) → offset 0 (満タン、リングが見える)
+            // progress 1 (終了) → offset circumference (空、リングが消える)
+            const offset = this.circumference * progress;
             this.progressRing.style.strokeDashoffset = offset;
         }
 
