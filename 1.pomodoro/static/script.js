@@ -6,6 +6,9 @@ let isRunning = false;
 let isWorkSession = true;
 let sessionCount = 0;
 
+// AudioContextを一度だけ作成
+let audioContext = null;
+
 // 設定
 let settings = {
     workTime: 25,
@@ -206,6 +209,9 @@ function completeSession() {
     
     playSound('end');
     
+    // 通知メッセージを現在のセッション状態に基づいて設定
+    const completedWorkSession = isWorkSession;
+    
     if (isWorkSession) {
         sessionCount++;
         updateSessionCount();
@@ -227,7 +233,7 @@ function completeSession() {
     // 通知
     if (Notification.permission === 'granted') {
         new Notification('ポモドーロタイマー', {
-            body: isWorkSession ? '休憩が終了しました。作業を開始しましょう！' : '作業が完了しました。休憩しましょう！',
+            body: completedWorkSession ? '作業が完了しました。休憩しましょう！' : '休憩が終了しました。作業を開始しましょう！',
             icon: '/static/pomodoro-icon.png'
         });
     }
@@ -258,8 +264,11 @@ function updateSessionCount() {
 function playSound(type) {
     if (!settings.sounds[type]) return;
     
-    // Web Audio APIを使用した簡易的なビープ音
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    // AudioContextを初回のみ作成
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
     
