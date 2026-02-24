@@ -17,6 +17,7 @@
                 timeText: document.getElementById('timeText'),
                 progressFill: document.getElementById('progressFill'),
                 completionMessage: document.getElementById('completionMessage'),
+                completionText: document.querySelector('#completionMessage p'),
                 startBtn: document.getElementById('startBtn'),
                 pauseBtn: document.getElementById('pauseBtn'),
                 resetBtn: document.getElementById('resetBtn')
@@ -62,7 +63,7 @@
                 ? '✓ 作業セッション完了！休憩を取りましょう。' 
                 : '✓ 休憩完了！次の作業を始めましょう。';
             
-            this.elements.completionMessage.querySelector('p').textContent = message;
+            this.elements.completionText.textContent = message;
             this.elements.completionMessage.style.display = 'block';
             
             // 5秒後に自動的に非表示

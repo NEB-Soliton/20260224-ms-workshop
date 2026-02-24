@@ -54,8 +54,7 @@
             engine.reset();
             ui.hideCompletion();
         });
-        
-        console.log('ポモドーロタイマー初期化完了');
+
     });
 
 })();

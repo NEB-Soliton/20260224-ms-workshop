@@ -101,6 +101,12 @@
          * 1秒ごとの処理
          */
         tick() {
+            // タイマー終了チェック
+            if (this.remainingSeconds <= 0) {
+                this.onTimerComplete();
+                return;
+            }
+            
             this.remainingSeconds--;
             
             const progress = ((this.totalSeconds - this.remainingSeconds) / this.totalSeconds) * 100;
@@ -110,11 +116,6 @@
                 totalSeconds: this.totalSeconds,
                 progress: progress
             });
-            
-            // タイマー終了
-            if (this.remainingSeconds <= 0) {
-                this.onTimerComplete();
-            }
         }
 
         /**
