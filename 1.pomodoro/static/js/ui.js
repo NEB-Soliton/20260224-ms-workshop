@@ -151,8 +151,7 @@
                     : '休憩が終わりました。次の作業を始めましょう！';
                 
                 new Notification(title, {
-                    body: body,
-                    icon: '/static/favicon.ico'
+                    body: body
                 });
             }
         }

@@ -88,10 +88,6 @@
             state: initialState.state,
             mode: initialState.mode
         });
-
-        // デバッグ用: グローバルに公開
-        window.timerEngine = timerEngine;
-        window.ui = ui;
     });
 
     /**
