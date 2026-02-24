@@ -1,0 +1,220 @@
+/* リセット */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+}
+
+.timer-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* ヘッダー */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+.window-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.control-btn {
+    width: 16px;
+    height: 16px;
+    border: none;
+    background: #e0e0e0;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 10px;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.control-btn:hover {
+    background: #d0d0d0;
+}
+
+/* モード表示 */
+.mode-display {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 24px;
+}
+
+/* タイマー表示 */
+.timer-display {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.progress-ring {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+    fill: none;
+    stroke: #e8e8e8;
+    stroke-width: 16;
+}
+
+.progress-ring-circle {
+    fill: none;
+    stroke: #667eea;
+    stroke-width: 16;
+    stroke-linecap: round;
+    stroke-dasharray: 754; /* 2 * π * 120 */
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear;
+}
+
+.time-text {
+    position: absolute;
+    font-size: 48px;
+    font-weight: 700;
+    color: #333;
+    font-variant-numeric: tabular-nums;
+}
+
+/* コントロールボタン */
+.controls {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.btn {
+    padding: 14px 32px;
+    border: none;
+    border-radius: 28px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    background: #a0a0a0;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.btn-secondary:hover {
+    background: #f0f0f0;
+}
+
+.btn-secondary:active {
+    background: #e0e0e0;
+}
+
+/* 進捗表示 */
+.progress-section {
+    background: #f5f5ff;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.progress-section h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    gap: 32px;
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 完了状態 */
+.timer-card.completed .mode-display {
+    color: #4caf50;
+    font-weight: 600;
+}
+
+.timer-card.completed .progress-ring-circle {
+    stroke: #4caf50;
+}
+
+/* 休憩モード */
+.timer-card.break-mode .mode-display {
+    color: #ff9800;
+}
+
+.timer-card.break-mode .progress-ring-circle {
+    stroke: #ff9800;
+}
