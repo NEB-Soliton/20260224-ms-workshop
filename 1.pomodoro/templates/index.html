@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポモドーロタイマー</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>ポモドーロタイマー</h1>
+        
+        <!-- モード表示 -->
+        <div class="mode-display" id="modeDisplay">
+            <span id="modeText">作業モード</span>
+        </div>
+        
+        <!-- 時間表示 -->
+        <div class="timer-display" id="timerDisplay">
+            <span id="timeText">25:00</span>
+        </div>
+        
+        <!-- プログレスバー -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        
+        <!-- コントロールボタン -->
+        <div class="controls">
+            <button id="startBtn" class="btn btn-primary">開始</button>
+            <button id="pauseBtn" class="btn btn-secondary" disabled>一時停止</button>
+            <button id="resetBtn" class="btn btn-secondary">リセット</button>
+        </div>
+        
+        <!-- 完了メッセージ -->
+        <div class="completion-message" id="completionMessage" style="display: none;">
+            <p>✓ セッション完了！</p>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/timer_engine.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
