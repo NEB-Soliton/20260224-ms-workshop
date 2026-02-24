@@ -51,6 +51,14 @@ pip install -r requirements.txt
 python app.py
 ```
 
+開発環境でデバッグモードを有効にする場合:
+```bash
+export FLASK_DEBUG=true
+python app.py
+```
+
+**注意**: 本番環境では必ずデバッグモードを無効にしてください（デフォルトで無効）。
+
 3. ブラウザでアクセス:
 ```
 http://localhost:5000
