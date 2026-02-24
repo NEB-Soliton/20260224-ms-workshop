@@ -275,8 +275,6 @@ class PomodoroTimer {
         
         ripple.style.left = `${x}px`;
         ripple.style.top = `${y}px`;
-        ripple.style.marginLeft = '0';
-        ripple.style.marginTop = '0';
         
         this.rippleContainer.appendChild(ripple);
         
@@ -301,7 +299,7 @@ class PomodoroTimer {
             oscillator.type = 'sine';
             
             gainNode.gain.setValueAtTime(NOTIFICATION_VOLUME, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.5);
             
             oscillator.start(audioContext.currentTime);
             oscillator.stop(audioContext.currentTime + 0.5);
