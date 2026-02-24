@@ -37,7 +37,7 @@ def create_user():
 @api.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
     """Get user details."""
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if not user:
         return jsonify({'error': 'User not found'}), 404
     
@@ -110,7 +110,7 @@ def complete_session(session_id):
 @api.route('/users/<int:user_id>/badges', methods=['GET'])
 def get_user_badges(user_id):
     """Get user's badges."""
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if not user:
         return jsonify({'error': 'User not found'}), 404
     

@@ -1,6 +1,6 @@
 """Unit tests for service layer."""
 import pytest
-from datetime import date, timedelta
+from datetime import date, datetime, timezone, timedelta
 from models import db, User, PomodoroSession, Badge
 from services import GamificationEngine, PomodoroService
 
@@ -64,7 +64,7 @@ class TestGamificationEngine:
     def test_update_streak_first_pomodoro(self, app, test_user):
         """Test streak update for first pomodoro."""
         with app.app_context():
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             assert user.streak_days == 0
             assert user.last_pomodoro_date is None
             
@@ -76,7 +76,7 @@ class TestGamificationEngine:
     def test_update_streak_same_day(self, app, test_user):
         """Test streak doesn't change on same day."""
         with app.app_context():
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             user.streak_days = 5
             user.last_pomodoro_date = date.today()
             db.session.commit()
@@ -89,7 +89,7 @@ class TestGamificationEngine:
     def test_update_streak_consecutive_day(self, app, test_user):
         """Test streak increases on consecutive day."""
         with app.app_context():
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             yesterday = date.today() - timedelta(days=1)
             user.streak_days = 5
             user.last_pomodoro_date = yesterday
@@ -103,7 +103,7 @@ class TestGamificationEngine:
     def test_update_streak_broken(self, app, test_user):
         """Test streak resets when broken."""
         with app.app_context():
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             three_days_ago = date.today() - timedelta(days=3)
             user.streak_days = 10
             user.last_pomodoro_date = three_days_ago
@@ -117,7 +117,7 @@ class TestGamificationEngine:
     def test_award_badges_first_pomodoro(self, app, test_user):
         """Test first pomodoro badge award."""
         with app.app_context():
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             user.total_pomodoros = 1
             
             badges = GamificationEngine.award_badges(user)
@@ -136,7 +136,7 @@ class TestGamificationEngine:
     def test_award_badges_no_duplicate(self, app, test_user):
         """Test that badges are not awarded twice."""
         with app.app_context():
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             user.total_pomodoros = 1
             
             # Award first time
@@ -152,7 +152,7 @@ class TestGamificationEngine:
     def test_award_badges_dedicated(self, app, test_user):
         """Test 10 pomodoros badge award."""
         with app.app_context():
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             user.total_pomodoros = 10
             
             badges = GamificationEngine.award_badges(user)
@@ -163,7 +163,7 @@ class TestGamificationEngine:
     def test_award_badges_master_of_focus(self, app, test_user):
         """Test 50 pomodoros badge award."""
         with app.app_context():
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             user.total_pomodoros = 50
             
             badges = GamificationEngine.award_badges(user)
@@ -174,7 +174,7 @@ class TestGamificationEngine:
     def test_award_badges_week_warrior(self, app, test_user):
         """Test 7-day streak badge award."""
         with app.app_context():
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             user.streak_days = 7
             
             badges = GamificationEngine.award_badges(user)
@@ -218,7 +218,7 @@ class TestPomodoroService:
             assert len(result['badges_awarded']) == 1  # First Pomodoro badge
             
             # Verify user stats updated
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             assert user.total_pomodoros == 1
             assert user.total_work_time == 25
             assert user.xp == 100
@@ -245,7 +245,7 @@ class TestPomodoroService:
     def test_complete_multiple_sessions_with_streak(self, app, test_user):
         """Test completing multiple sessions builds streak and XP."""
         with app.app_context():
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             
             # Set user to have completed yesterday
             yesterday = date.today() - timedelta(days=1)
@@ -258,7 +258,7 @@ class TestPomodoroService:
             result = PomodoroService.complete_session(session.id)
             
             # Should have 3-day streak now
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             assert user.streak_days == 3
             assert result['xp_earned'] == 150  # 100 + 50 bonus
     
@@ -266,7 +266,7 @@ class TestPomodoroService:
         """Test getting user statistics."""
         with app.app_context():
             # Create some data
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             user.level = 2
             user.xp = 300
             user.total_pomodoros = 5

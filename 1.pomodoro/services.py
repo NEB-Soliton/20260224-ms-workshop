@@ -1,5 +1,5 @@
 """Service layer for Pomodoro Timer application."""
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from models import db, User, PomodoroSession, Badge
 
 
@@ -115,7 +115,7 @@ class PomodoroService:
     @staticmethod
     def start_session(user_id, duration):
         """Start a new pomodoro session."""
-        user = User.query.get(user_id)
+        user = db.session.get(User, user_id)
         if not user:
             raise ValueError(f"User with id {user_id} not found")
         
@@ -132,7 +132,7 @@ class PomodoroService:
     @staticmethod
     def complete_session(session_id):
         """Complete a pomodoro session and update user stats."""
-        session = PomodoroSession.query.get(session_id)
+        session = db.session.get(PomodoroSession, session_id)
         if not session:
             raise ValueError(f"Session with id {session_id} not found")
         
@@ -152,7 +152,7 @@ class PomodoroService:
         
         # Update session
         session.completed = True
-        session.completed_at = datetime.utcnow()
+        session.completed_at = datetime.now(timezone.utc)
         session.xp_earned = xp_earned
         
         # Update user stats
@@ -176,7 +176,7 @@ class PomodoroService:
     @staticmethod
     def get_user_stats(user_id):
         """Get user statistics."""
-        user = User.query.get(user_id)
+        user = db.session.get(User, user_id)
         if not user:
             raise ValueError(f"User with id {user_id} not found")
         

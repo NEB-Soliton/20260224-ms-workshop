@@ -1,6 +1,6 @@
 """Unit tests for database models."""
 import pytest
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from models import db, User, PomodoroSession, Badge
 
 
@@ -109,7 +109,7 @@ class TestPomodoroSessionModel:
             
             # Complete the session
             session.completed = True
-            session.completed_at = datetime.utcnow()
+            session.completed_at = datetime.now(timezone.utc)
             session.xp_earned = 100
             db.session.commit()
             

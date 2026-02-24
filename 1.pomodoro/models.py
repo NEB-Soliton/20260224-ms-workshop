@@ -1,5 +1,5 @@
 """Database models for Pomodoro Timer application."""
-from datetime import datetime
+from datetime import datetime, timezone
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -17,7 +17,7 @@ class User(db.Model):
     xp = db.Column(db.Integer, default=0)
     streak_days = db.Column(db.Integer, default=0)
     last_pomodoro_date = db.Column(db.Date, nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     
     # Relationships
     sessions = db.relationship('PomodoroSession', backref='user', lazy=True, cascade='all, delete-orphan')
@@ -36,7 +36,7 @@ class PomodoroSession(db.Model):
     duration = db.Column(db.Integer, nullable=False)  # in minutes
     completed = db.Column(db.Boolean, default=False)
     xp_earned = db.Column(db.Integer, default=0)
-    started_at = db.Column(db.DateTime, default=datetime.utcnow)
+    started_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     completed_at = db.Column(db.DateTime, nullable=True)
     
     def __repr__(self):
@@ -51,7 +51,7 @@ class Badge(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255))
-    earned_at = db.Column(db.DateTime, default=datetime.utcnow)
+    earned_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     
     def __repr__(self):
         return f'<Badge {self.name} - User {self.user_id}>'

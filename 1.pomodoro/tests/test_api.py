@@ -85,7 +85,7 @@ class TestUserEndpoints:
         """Test getting user statistics (positive case)."""
         # Add some test data
         with app.app_context():
-            user = User.query.get(test_user)
+            user = db.session.get(User, test_user)
             user.total_pomodoros = 5
             session = PomodoroSession(user_id=test_user, duration=25, completed=True)
             db.session.add(session)
