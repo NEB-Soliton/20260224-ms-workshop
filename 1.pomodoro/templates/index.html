@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポモドーロタイマー</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🍅 ポモドーロタイマー</h1>
+        
+        <!-- 設定パネル -->
+        <div class="settings-panel">
+            <button class="settings-toggle" onclick="toggleSettings()">⚙️ 設定</button>
+            
+            <div class="settings-content" id="settingsContent">
+                <!-- 時間設定 -->
+                <div class="setting-group">
+                    <label>作業時間</label>
+                    <div class="button-group">
+                        <button class="time-btn" onclick="setWorkTime(15)">15分</button>
+                        <button class="time-btn active" onclick="setWorkTime(25)">25分</button>
+                        <button class="time-btn" onclick="setWorkTime(35)">35分</button>
+                        <button class="time-btn" onclick="setWorkTime(45)">45分</button>
+                    </div>
+                </div>
+                
+                <!-- 休憩時間設定 -->
+                <div class="setting-group">
+                    <label>休憩時間</label>
+                    <div class="button-group">
+                        <button class="time-btn active" onclick="setBreakTime(5)">5分</button>
+                        <button class="time-btn" onclick="setBreakTime(10)">10分</button>
+                        <button class="time-btn" onclick="setBreakTime(15)">15分</button>
+                    </div>
+                </div>
+                
+                <!-- テーマ設定 -->
+                <div class="setting-group">
+                    <label>テーマ</label>
+                    <div class="button-group">
+                        <button class="theme-btn active" onclick="setTheme('light')">ライト</button>
+                        <button class="theme-btn" onclick="setTheme('dark')">ダーク</button>
+                        <button class="theme-btn" onclick="setTheme('focus')">フォーカス</button>
+                    </div>
+                </div>
+                
+                <!-- サウンド設定 -->
+                <div class="setting-group">
+                    <label>サウンド設定</label>
+                    <div class="sound-controls">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="startSound" checked onchange="updateSoundSettings()">
+                            開始音
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="endSound" checked onchange="updateSoundSettings()">
+                            終了音
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="tickSound" onchange="updateSoundSettings()">
+                            Tick音
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- タイマー表示 -->
+        <div class="timer-display">
+            <div class="timer-status" id="timerStatus">作業セッション</div>
+            <div class="timer-time" id="timerTime">25:00</div>
+            <div class="timer-progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+        
+        <!-- コントロールボタン -->
+        <div class="controls">
+            <button class="btn btn-primary" id="startBtn" onclick="startTimer()">開始</button>
+            <button class="btn btn-secondary" id="pauseBtn" onclick="pauseTimer()" style="display: none;">一時停止</button>
+            <button class="btn btn-secondary" onclick="resetTimer()">リセット</button>
+        </div>
+        
+        <!-- セッションカウンター -->
+        <div class="session-counter">
+            <div class="counter-label">完了セッション</div>
+            <div class="counter-value" id="sessionCount">0</div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

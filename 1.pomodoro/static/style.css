@@ -1,0 +1,291 @@
+/* 基本スタイル */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #e74c3c;
+    --secondary-color: #3498db;
+    --background-color: #f5f5f5;
+    --text-color: #333;
+    --card-background: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: var(--shadow);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    color: var(--primary-color);
+}
+
+/* 設定パネル */
+.settings-panel {
+    margin-bottom: 30px;
+}
+
+.settings-toggle {
+    width: 100%;
+    padding: 12px;
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+}
+
+.settings-toggle:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.settings-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    margin-top: 15px;
+}
+
+.settings-content.active {
+    max-height: 1000px;
+}
+
+.setting-group {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--background-color);
+    border-radius: 8px;
+}
+
+.setting-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.time-btn, .theme-btn {
+    flex: 1;
+    min-width: 60px;
+    padding: 10px;
+    border: 2px solid var(--secondary-color);
+    background: transparent;
+    color: var(--text-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95em;
+}
+
+.time-btn:hover, .theme-btn:hover {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.time-btn.active, .theme-btn.active {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.sound-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.checkbox-label:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* タイマー表示 */
+.timer-display {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.timer-status {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.timer-time {
+    font-size: 5em;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 20px 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.timer-progress {
+    width: 100%;
+    height: 10px;
+    background: var(--background-color);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--primary-color);
+    width: 0%;
+    transition: width 1s linear;
+}
+
+/* コントロールボタン */
+.controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.btn {
+    padding: 15px 40px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(231, 76, 60, 0.3);
+}
+
+.btn-secondary {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+}
+
+/* セッションカウンター */
+.session-counter {
+    text-align: center;
+    padding: 20px;
+    background: var(--background-color);
+    border-radius: var(--border-radius);
+}
+
+.counter-label {
+    font-size: 1em;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.counter-value {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* ダークテーマ */
+body.dark-theme {
+    --background-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --card-background: #2d2d2d;
+}
+
+/* フォーカステーマ */
+body.focus-theme {
+    --background-color: #f9f9f9;
+    --text-color: #555;
+    --card-background: #ffffff;
+    --primary-color: #7f8c8d;
+    --secondary-color: #95a5a6;
+}
+
+body.focus-theme h1 {
+    font-size: 1.8em;
+}
+
+body.focus-theme .timer-time {
+    font-size: 6em;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .timer-time {
+        font-size: 4em;
+    }
+    
+    .btn {
+        padding: 12px 30px;
+        font-size: 1em;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+}
