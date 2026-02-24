@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <header>
+            <h1>🍅 Pomodoro Timer</h1>
+            <div class="header-buttons">
+                <button id="statsBtn" class="btn-secondary">📊 統計</button>
+                <button id="settingsBtn" class="btn-secondary">⚙️ 設定</button>
+            </div>
+        </header>
+
+        <!-- メインタイマー -->
+        <main class="timer-section">
+            <div class="timer-card">
+                <div class="session-type">
+                    <span id="sessionLabel">作業時間</span>
+                </div>
+                
+                <!-- SVG円形プログレスバー -->
+                <div class="timer-display">
+                    <svg class="progress-ring" width="280" height="280">
+                        <circle class="progress-ring-circle-bg" 
+                                cx="140" cy="140" r="120" 
+                                fill="none" 
+                                stroke="#e0e0e0" 
+                                stroke-width="8"/>
+                        <circle id="progressCircle" 
+                                class="progress-ring-circle" 
+                                cx="140" cy="140" r="120" 
+                                fill="none" 
+                                stroke="#667eea" 
+                                stroke-width="8"
+                                stroke-linecap="round"/>
+                    </svg>
+                    <div class="timer-text">
+                        <div id="timerDisplay" class="time">25:00</div>
+                        <div id="pomodoroCount" class="count">0 / 4</div>
+                    </div>
+                </div>
+
+                <!-- コントロールボタン -->
+                <div class="timer-controls">
+                    <button id="startBtn" class="btn-primary">開始</button>
+                    <button id="pauseBtn" class="btn-secondary" style="display:none;">一時停止</button>
+                    <button id="resetBtn" class="btn-secondary">リセット</button>
+                </div>
+            </div>
+
+            <!-- 今日の統計 -->
+            <div class="today-stats">
+                <h3>今日の進捗</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="todayPomodoros">0</div>
+                        <div class="stat-label">完了</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="todayWorkTime">0h</div>
+                        <div class="stat-label">作業時間</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="todayBreakTime">0m</div>
+                        <div class="stat-label">休憩時間</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 統計モーダル -->
+        <div id="statsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>📊 統計情報</h2>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="stats-section">
+                        <h3>今週の統計</h3>
+                        <div id="weekStats" class="stats-details"></div>
+                    </div>
+                    <div class="stats-section">
+                        <h3>過去7日間</h3>
+                        <div id="historyStats" class="history-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 設定モーダル -->
+        <div id="settingsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>⚙️ 設定</h2>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="settingsForm">
+                        <div class="form-group">
+                            <label for="workDuration">作業時間（分）</label>
+                            <input type="number" id="workDuration" min="1" max="60" value="25">
+                        </div>
+                        <div class="form-group">
+                            <label for="shortBreakDuration">短い休憩（分）</label>
+                            <input type="number" id="shortBreakDuration" min="1" max="30" value="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="longBreakDuration">長い休憩（分）</label>
+                            <input type="number" id="longBreakDuration" min="1" max="60" value="15">
+                        </div>
+                        <div class="form-group">
+                            <label for="pomodorosUntilLongBreak">長い休憩までのポモドーロ数</label>
+                            <input type="number" id="pomodorosUntilLongBreak" min="1" max="10" value="4">
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="autoStartBreaks">
+                                休憩を自動開始
+                            </label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="autoStartPomodoros">
+                                作業を自動開始
+                            </label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="soundEnabled" checked>
+                                通知音を有効化
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="soundVolume">音量</label>
+                            <input type="range" id="soundVolume" min="0" max="1" step="0.1" value="0.7">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">保存</button>
+                            <button type="button" id="resetSettingsBtn" class="btn-secondary">デフォルトに戻す</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
